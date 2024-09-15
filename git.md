@@ -23,29 +23,29 @@ git 中的目錄結構，類似於 folder，幫我們把一組文件存在一起
 
 #### 如何查看 commit 資訊？
 
-      1. `git log -1` 查看最新一筆的 commit 記錄
+1.  `git log -1` 查看最新一筆的 commit 記錄
 
-         ![圖片描述](img/c-1.png)
+    ![圖片描述](img/c-1.png)
 
-      2. `git cat-file -p <commit-id>` 查看該 commit 的詳細內容，分別是
+2.  `git cat-file -p <commit-id>` 查看該 commit 的詳細內容，分別是
 
-         ![圖片描述](img/c-2.png)
+    ![圖片描述](img/c-2.png)
 
-         - tree：這個 commit 所追蹤的目錄結構（指向文件和資料夾）
-         - parent：上一個 commit 的 ID
-         - author, committer, commit message
+    - tree：這個 commit 所追蹤的目錄結構（指向文件和資料夾）
+    - parent：上一個 commit 的 ID
+    - author, committer, commit message
 
-      3. `git cat-file -p <tree-id>` 來查看這次 commit 中，Git 追蹤了哪些文件
+3.  `git cat-file -p <tree-id>` 來查看這次 commit 中，Git 追蹤了哪些文件
 
-         ![圖片描述](img/c-3.png)
+    ![圖片描述](img/c-3.png)
 
-         如圖所示，Git 追蹤了 README.md、dummy-tree 等文件
+    如圖所示，Git 追蹤了 README.md、dummy-tree 等文件
 
-      4. `git cat-file -p <blob-id>` 查看文件的原始內容
+4.  `git cat-file -p <blob-id>` 查看文件的原始內容
 
-         ![圖片描述](img/c-4.png)
+    ![圖片描述](img/c-4.png)
 
-         如圖所示，可以看到 video.md 寫了我的影片心得
+    如圖所示，可以看到 video.md 寫了我的影片心得
 
 ### 4. Branch
 
@@ -59,7 +59,7 @@ Branch 本質上是一個指向 commit 的指標。白話來說就是個「分�
 
 ![圖片描述](img/b-2.png)
 
-當我們在 shoppingcar branch 上進行 commit 時，branch 會自動指向最新的 commit。也就是說，每當我們完成一個 commit，branch 的「分類貼紙」會自動貼到最新的 commit 上，保持追蹤當前的最新修改。
+當我們在 shoppingcar branch 上進行 commit 時，branch 會自動指向最新的 commit。也就是說，每當我們完成一個 commit，branch 的「分類貼紙」會自動「貼」到最新的 commit 上，保持追蹤當前的最新修改。
 
 ![圖片描述](img/b-3.png)
 
@@ -84,25 +84,28 @@ Branch 本質上是一個指向 commit 的指標。白話來說就是個「分�
 ## 紀錄在 git repo 操作過程中，.git 檔案夾裡的變化，看看你可以觀察到什麼
 
 初次建立 git repo 時，我們都知道要下 git init，但這句指令背後究竟發生了甚麼事?
-git 會幫我們自動生成一個名為 `.git` 的隱藏資料夾，這個資料夾是 git 專案的核心。所有的版本控制、分支、commit 歷史等資料都儲存在這裡，我們用 `tree .git` 可以看到以下內容:
+
+git 會幫我們自動生成一個名為 `.git` 的隱藏資料夾，這個資料夾是 git 專案的核心。所有的版本控制、分支、commit 歷史等資料都儲存在這裡。
+
+我們用 `tree .git` 可以看到完整目錄結構:
 
 ![圖片描述](img/git-1.png)
 
-下列說明幾個重要的檔案與資料夾
+幾個重要的檔案與資料夾 :
 
 - config：專案的 Git 配置，例如 remote repo URL 或是 local/remote 的 branch 對應關係
 
-![圖片描述](img/git-3.png)
+  ![圖片描述](img/git-3.png)
 
 - objects：儲存所有 Git 中的物件，包括 blobs（檔案內容）、trees（目錄樹結構）、commits（提交資訊）
 
 - HEAD：儲存當前所在的 branch，可以看到我專案現在停在 dev branch 上
 
-![圖片描述](img/git-4.png)
+  ![圖片描述](img/git-4.png)
 
 - logs：記錄了每次 HEAD 的變化 ( branch 移動變化)，以及 commit 紀錄
 
-### Git 的神秘世界：.git/objects 目錄
+### Git 如何追蹤版本變動: .git/objects 目錄
 
 都說 git 會幫我們追蹤所有的「修正版本」，那是如何管理這些變來變去的程式碼和文件的?
 
@@ -132,14 +135,14 @@ commit message 是用來記錄提交版本的摘要，未來我們一定會跟�
 <type>(<scope>): <subject>
 ```
 
-1. <type> : 類別規範
+1. \<type> : 類別規範
    - feat：新增或修改功能
    - fix：修補 bug
    - docs：文件
    - refactor：重構
    - chore：不影響程式運作的變動 e.g. congig
-2. <scope> : 影響範圍，選填 e.g. 資料庫、MVC 架構之一
-3. <subject> : commit 的簡短描述
+2. \<scope> : 影響範圍，選填 e.g. 資料庫、MVC 架構之一
+3. \<subject> : commit 的簡短描述
 
 Commit Message 範例 :
 
