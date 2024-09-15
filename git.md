@@ -1,6 +1,6 @@
-- 說明 blob, tree, commit, branch, head 分別是什麼
+## 說明 blob, tree, commit, branch, head 分別是什麼
 
-# Blob (Binary Large Object)
+1.  Blob (Binary Large Object)
 
 Blob 是 git 中最小的文件單位，當我們寫專案，希望 git 能去追蹤我們修改後的檔案，git 會將文件的內容作為一個 blob 對象存儲，並且回給我們一個鍵值 SHA-1(40 位的雜湊值)，相當於這個 blob 的身分證(ID)，之後我們就可以這個 ID 來找到文件的內容
 
@@ -74,7 +74,7 @@ Blob 是 git 中最小的文件單位，當我們寫專案，希望 git 能去�
 
    最後，`git checkout -` 可以回到前一次所在的分支
 
-# 紀錄在 git repo 操作過程中，.git 檔案夾裡的變化，看看你可以觀察到什麼
+## 紀錄在 git repo 操作過程中，.git 檔案夾裡的變化，看看你可以觀察到什麼
 
 初次建立 git repo 時，我們都知道要下 git init，但這句指令背後究竟發生了甚麼事?
 git 會幫我們自動生成一個名為 `.git` 的隱藏資料夾，這個資料夾是 git 專案的核心。所有的版本控制、分支、commit 歷史等資料都儲存在這裡，我們用 `tree .git` 可以看到以下內容:
@@ -110,8 +110,37 @@ git 會幫我們自動生成一個名為 `.git` 的隱藏資料夾，這個資�
 
 總結一下，git 這樣的設計就是個高校的圖書管理員，可以在茫茫的版本紀錄中找到我們所需的資訊，讓 git 從個人小專案到社群開源大專案，都能輕鬆 handle 住。
 
-# commit message 應該怎麼寫比較好？應該有什麼 `style` 嗎？
+## commit message 應該怎麼寫比較好？應該有什麼 `style` 嗎？
 
-參考來源:[Git Objects](https://git-scm.com/book/zh-tw/v2/Git-Internals-Git-Objects)
+commit message 是用來記錄提交版本的摘要，未來我們一定會跟多個工程師合作開發專案，當不同工程師都在接手同一份專案時，好的 commit message 能幫助我們快速進入狀況，知道程式異動的原因，不管要 code review 還是 debug 都很方便。
 
-(以上部分內容有經過 GPT 幫忙潤稿)
+一個好的 commit message 要能一眼讓人看出他在幹嘛，業界們推廣寫法稱之為「約定式提交」，其組合為:
+
+`<type>(<scope>): <subject>`
+
+1. <type> : 類別規範
+   - feat：新增或修改功能
+   - fix：修補 bug
+   - docs：文件
+   - refactor：重構
+   - chore：不影響程式運作的變動 e.g. congig
+2. (<scope>) : 影響範圍，選填 e.g. 資料庫、MVC 架構之一
+3. <subject> : commit 的簡短描述
+
+Commit Message 範例 :
+
+`
+feat(shoppingcar): 新增結算總金額功能
+
+fix: 解決按鈕跑版
+
+doc: 更新 README
+
+chore: 移除過期 URL
+`
+
+參考來源:
+
+- [Git Objects](https://git-scm.com/book/zh-tw/v2/Git-Internals-Git-Objects)
+- [如何撰好的 Git Commit Message](https://heidiliu2020.github.io/git-commit-message/)
+  (以上內容有經過 GPT 幫忙潤稿)
