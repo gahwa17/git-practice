@@ -1,10 +1,10 @@
-### 環境準備
+## 環境準備
 
 **v20.17.0**，官方最新的 LTS 版本
 
-### nvm 與 npm 分別是什麼
+## nvm 與 npm 分別是什麼
 
-- nvm (Node Package Managers)
+- nvm (Node Version Managers)
 
   - Node 版本管理工具，在不同個 Node.js 版本之間快速切換
   - WHY? 實際開發時，可能會遇到新舊專案版本不一的問題，就可以用 nvm 解決
