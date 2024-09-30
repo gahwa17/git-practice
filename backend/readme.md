@@ -54,14 +54,13 @@
 
 - 要上傳
 
-   - `package.json` 和 `package-lock.json`：
-     代表我的專案所需的套件與對應版本，確其他開發人也有相同環境
+   - `package.json` 和 `package-lock.json`：代表我的專案所需的套件與對應版本，能確保其他開發者也有相同環境
    - 主程式：`app.js`，專案主要的功能
 
 - 不上傳
 
-   - `node_modules`：專案使用到的所有套件，根據空間，不用上傳，可以根據 `package.json` 來自動下載所需的套件
-   - `.env`：專案相關的敏感資訊，e.g. API 金鑰、資料庫密碼；因此也不能公開上傳
+   - `node_modules`：專案使用到的所有套件，檔案很肥，所以不用上傳，其他人可以根據 `package.json` 來自動下載所需的套件
+   - `.env`：專案相關的敏感資訊，不能公開上傳 e.g. API金鑰、資料庫密碼
 
 
 ### 5. 範例程式中用 require，但上週的 Stack 是用 import/export，這兩種分別是 JavaScript 引用模組的兩種方式: CJS vs ESM，這兩者分別怎麼用？
