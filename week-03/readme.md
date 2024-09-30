@@ -39,3 +39,4 @@ e.g. 美國東北部或亞太地區
 ### 資料參考
 
 - [How to choose RIGHT AWS Region | What is AWS Region and Availability Zone](https://www.youtube.com/watch?v=Kv3b48fKcUY&t=5s&ab_channel=CloudChamp)
+- [Regions and Zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions)
