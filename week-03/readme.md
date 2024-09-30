@@ -26,7 +26,7 @@ e.g. 美國東北部或亞太地區
 
    有些 AWS 服務在部分地區無法使用，如圖所示
 
-   ![AWS-not-support](git-practice/img/AWS-not-support.jpg)
+   ![AWS-not-support](../img/AWS-not-support.jpg)
 
    _圖片來源：[Stack Overflow](https://stackoverflow.com/questions/55078339/aws-says-simple-email-service-is-not-available-in-this-region-how-to-fix-this)_
 
@@ -36,6 +36,6 @@ e.g. 美國東北部或亞太地區
 
    不同地區的服務計價方式不同，到 [比價網站](https://instances.vantage.sh/) 看 EC2 Regoin 時可觀察到 US 普遍比較便宜。
 
-#### 資料參考
+### 資料參考
 
 - [How to choose RIGHT AWS Region | What is AWS Region and Availability Zone](https://www.youtube.com/watch?v=Kv3b48fKcUY&t=5s&ab_channel=CloudChamp)
