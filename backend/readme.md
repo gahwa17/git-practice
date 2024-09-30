@@ -16,48 +16,47 @@
 
 ### 2. `package.json` 中的 scripts 這個區塊怎麼用？
 
-可在 scripts 區塊自定義一些常見的命令，通常跑測試時會用到
+  可在 scripts 區塊自定義一些常見的命令，通常跑測試時會用到，
 
-透過 `npm run <script-name>` 執行這些命令
+  透過 `npm run <script-name>` 執行這些命令
 
-剛建起來的預設 script 裡面已經有 `test` 指令，執行結果如下
+  剛建起來的預設 script 裡面已經有 `test` 指令，執行結果如下
 
-![test](../img/script.jpg)
+  ![test](../img/script.jpg)
 
 ### 3. Port number 要怎麼以環境變數來設定？
 
-1. 安裝 `dotenv` 模組，專門用來載入 `.env` 檔案中環境變數的模組
+  1. 安裝 `dotenv` 模組，專門用來載入 `.env` 檔案中環境變數的模組
 
-`npm install dotenv`
+  `npm install dotenv`
 
-2. 在專案目錄下建立一個 `.env` 檔案，在裡面設定我們的環境變數
+  2. 在專案目錄下建立一個 `.env` 檔案，在裡面設定我們的環境變數
 
-   ```makefile
-     PORT=3000
-   ```
+        ```makefile
+          PORT=3000
+        ```
 
-3. 改 `app.js` 的 PORT 設定，使其可以讀到 `.env` 檔案中的環境變數
+  3. 改 `app.js` 的 PORT 設定，使其可以讀到 `.env` 檔案中的環境變數
 
-```javascript
-require("dotenv").config(); // 載入 dotenv 套件
-const port = process.env.PORT; // 使用環境變數中的 PORT
-```
+      ```javascript
+      require("dotenv").config(); // 載入 dotenv 套件
+      const port = process.env.PORT; // 使用環境變數中的 PORT
+      ```
+    
+      這樣就可以改掉原先寫死的 port，未來想更換 port 就到 `.env` 修改，而不用動到 `app.js`
+    
+      #### 補充 : process
+    
+      是 Node.js 內建的全域物件 (Global object)，不需要 "require" 就可以使用它。process 代表的是當前 Node.js 執行的程式的相關資訊，像是環境變數、目前的工作目錄、記憶體使用情況等，都可以從 process 取得。
 
-這樣就可以改掉原先寫死的 port，未來想更換 port 就到 `.env` 修改，而不用動到 `app.js`
+### 4. 哪些檔案應該要被放上 github repo 這個問題，描述看看為什麼你選擇上傳某些檔案、選擇不上傳某些檔案，決策的要素是什麼？
 
-#### 補充 : process
+  #### 要上傳
+  - `package.json` 和 `package-lock.json` : 代表我的專案所需的套件與對應版本，讓其他開發人員能跟我有相同環境
 
-是 Node.js 內建的全域物件 (Global object)，不需要 "require" 就可以使用它。process 代表的是當前 Node.js 執行的程式的相關資訊，像是環境變數、目前的工作目錄、記憶體使用情況等，都可以從 process 取得。
+  - 主程式 : `app.js`，專案主要的功能
 
-### 4. 關於哪些檔案應該要被放上 github repo 這個問題，描述看看為什麼你選擇上傳某些檔案、選擇不上傳某些檔案，決策的要素是什麼？
-
-#### 要上傳
-
-- `package.json` 和 `package-lock.json` : 代表我的專案所需的套件與對應版本，讓其他開發人員能跟我有相同環境
-
-- 主程式 : `app.js`，專案主要的功能
-
-#### 不上傳
+  #### 不上傳
 
 - `node_modules`：專案要用到的所有套件，很佔空間，不用上傳，可以根據 `package.json` 來自動下載所需的套件
 
@@ -72,10 +71,10 @@ const port = process.env.PORT; // 使用環境變數中的 PORT
 | exports | `module.exports = { ... }` 或 `exports.func = ...`            | `export default { ... }` 或 `export const func = ...`                 |
 | 副檔名  | `.js`                                                         | `.mjs` 或 <br>`.js` （需在 `package.json` 中加入 `"type": "module"`） |
 
-注意
+  #### 注意
 
-- ESM 和 CJS 是不相容的模塊系統，不能在 ES6 模塊和 CommonJS 模塊之間進行導入和導出
-- ESM 是目前主流，不過在很多 Node.js 後端開發中，CJS 仍被廣泛使用
+  - ESM 和 CJS 是不相容的模塊系統，不能在 ES6 模塊和 CommonJS 模塊之間進行導入和導出
+  - ESM 正在變成目前主流，不過在很多 Node.js 後端開發中，CJS 仍被廣泛使用
 
 ### 參考資料
 
