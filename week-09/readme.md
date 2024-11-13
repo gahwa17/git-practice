@@ -1,9 +1,11 @@
 ## 查看錯誤訊息們
 * `curl localhost`
+    
     ![image](./img/1.png)
 
 
 * `sudo systemctl start nginx`
+    
     ![image](./img/2.png)
     ![image](./img/3.png)
 
@@ -73,11 +75,13 @@
     Nov 07 06:45:51 ip-172-31-38-82 systemd[1]: Failed to start nginx.service - A high performance web server and a reverse proxy server.
     ```
 * nginx 設定檔檢查 : `sudo nginx -t` 
-![image](./img/4.png)
+  
+  ![image](./img/4.png)
 
 
 ## 問題排除一 : nginx.conf 分號問題
-![image](./img/5.png)
+  
+  ![image](./img/5.png)
 
 分號問題修改後再檢查一次，通過
 ```
@@ -89,22 +93,25 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 ## 問題排除二 : 80 port 已被佔用
 ### 檢查 port 80
 1. `sudo lsof -i:80`
-![image](./img/6.png)
-* 列出佔用 80 端口的進程
-* 顯示 srv 進程(PID 575)正在監聽 HTTP 端口(80)
+  
+  ![image](./img/6.png)
+  * 列出佔用 80 端口的進程
+  * 顯示 srv 進程(PID 575)正在監聽 HTTP 端口(80)
 
 
 2. 看 srv 在幹嘛
-* 搜尋包含 "srv" 的進程 : `ps aux | grep srv`
-![image](./img/7.png)
-    PID 575: 運行於 `/usr/local/bin/.lab/srv`
-*  查看 srv 服務的狀態 : `systemctl status srv`
-![image](./img/8.png)
+  * 搜尋包含 "srv" 的進程 : `ps aux | grep srv`
+    
+    ![image](./img/7.png)
+      PID 575: 運行於 `/usr/local/bin/.lab/srv`
+  *  查看 srv 服務的狀態 : `systemctl status srv`
+    
+    ![image](./img/8.png)
 
-    * 服務名稱：Another Web Srv
-    * 狀態：active (running)
-    * 運行時間：從 2024-11-07 06:25:34 UTC 開始
-    * 路徑：/usr/lib/systemd/system/srv.service
+      * 服務名稱：Another Web Srv
+      * 狀態：active (running)
+      * 運行時間：從 2024-11-07 06:25:34 UTC 開始
+      * 路徑：/usr/lib/systemd/system/srv.service
 
 
 
@@ -115,7 +122,8 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 1. 使用 systemctl 來停止 : `sudo systemctl stop srv`
 
 2. 確認是否停止 : `systemctl status srv`
-![image](./img/9.png)
+  
+  ![image](./img/9.png)
 
 3. 確認 80 port 被釋放：`sudo lsof -i :80`
 
@@ -123,7 +131,8 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 5. 查看服務的詳細啟動配置：systemctl list-unit-files | grep srv
 systemctl list-unit-files | grep srv 的輸出顯示了所有包含 "srv" 的系統服務單元檔案及其狀態：
-![image](./img/10.png)
+  
+  ![image](./img/10.png)
 
 
 * chrony-dnssrv@.service
@@ -137,17 +146,6 @@ systemctl list-unit-files | grep srv 的輸出顯示了所有包含 "srv" 的系
     * 狀態：enabled（已啟用）
     * preset：enabled（預設啟用）
     * 這表明該服務會在系統啟動時自動啟動
-    
-* chrony-dnssrv@.timer
-
-    * 狀態：disabled（已停用）
-    * preset：enabled（預設啟用）
-    * 這是一個與 chrony 服務相關的計時器單元
-
-* 這個輸出告訴我們幾個重要信息：
-
-    * srv.service 確實設置為開機自動啟動
-    * 它可能與系統中的其他服務（如 chrony）有關聯
 
 7. 關掉 srv
 
@@ -170,11 +168,13 @@ systemctl status srv
 1. 現狀 : 關掉 srv 服務，但 curl 仍還是失敗
 2. 查看 nginx log: 
     * `sudo tail -f /var/log/nginx/error.log`
+    
     ![image](./img/13.png)
     錯誤日誌 : 2024/11/07 06:45:48 [emerg] 1278#1278: bind() to 0.0.0.0:80 failed (98: Address already in use)
 
 3. 查看 iptable :  `sudo iptables -L -v -n`
-![image](./img/14.png)
+  
+  ![image](./img/14.png)
 
 4. iptables 規則文件
     * 鏈（Chain）設置
@@ -209,8 +209,10 @@ sudo netfilter-persistent save
 
 ## 問題排解四 : 權限問題 
 1. 現況 : 可以 `curl localhost`，卻遇到 `403 Forbidden`
-![image](./img/15.png)
+    
+    ![image](./img/15.png)
 2. Nginx 錯誤訊息 : `sudo tail -f /var/log/nginx/access.log`
+    
     ![image](./img/16.png)
 Access Log 顯示 403 Forbidden 錯誤：`"GET / HTTP/1.1" 403 162`，這表示 Nginx 可以接收請求，但拒絕訪問。常見的 403 原因：
     * 目錄權限問題
@@ -236,7 +238,7 @@ Access Log 顯示 403 Forbidden 錯誤：`"GET / HTTP/1.1" 403 162`，這表示 
     * 改為 644 後，www-data 獲得讀取權限 (r--)，Nginx 就可以讀文件
 
 ### 能看到 Congratulations 了
-![image](./img/17.png)
+  ![image](./img/17.png)
 
 ## 確保 Reboot 後也能順利執行
 1. iptables 規則永久設定
